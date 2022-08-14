@@ -16,6 +16,9 @@ public class Game extends Application {
     private GraphicsContext gc;
     private Stickman player;
 
+    public static int CANVAS_HEIGHT = 700;
+    public static int CANVAS_WIDTH = 1200;
+
     public static void startGame()
     {
         launch();
@@ -23,13 +26,13 @@ public class Game extends Application {
 
     public void start(Stage theStage)
     {
-        theStage.setTitle( "Timeline Example" );
+        theStage.setTitle( "Stickman" );
 
         Group root = new Group();
         Scene theScene = new Scene( root );
         theStage.setScene( theScene );
 
-        this.canvas = new Canvas( 800, 800 );
+        this.canvas = new Canvas( CANVAS_WIDTH, CANVAS_HEIGHT );
         root.getChildren().add( canvas );
 
         this.gc = canvas.getGraphicsContext2D();

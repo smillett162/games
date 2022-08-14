@@ -1,5 +1,6 @@
 package games.model.entities;
 
+import games.Game;
 import javafx.scene.image.Image;
 
 public class Stickman {
@@ -7,6 +8,9 @@ public class Stickman {
     private Image image;
     private int x = 200;
     private int y = 200;
+
+    private int imageX = 50;
+    private int imageY = 50;
 
     private boolean left;
     private boolean right;
@@ -30,19 +34,35 @@ public class Stickman {
     }
 
     public void moveLeft() {
-        x = x - 5;
+        if (x - 5 >= 0) {
+            x = x - 5;
+        } else {
+            x = 0;
+        }
     }
 
     public void moveRight() {
-        x = x + 5;
+        if (x + 5 <= Game.CANVAS_WIDTH - imageX) {
+            x = x + 5;
+        } else {
+            x = Game.CANVAS_WIDTH - imageX;
+        }
     }
 
     public void moveUp() {
-        y = y - 5;
+        if (y - 5 >= 0) {
+            y = y - 5;
+        } else {
+            y = 0;
+        }
     }
 
     public void moveDown() {
-        y = y + 5;
+        if (y + 5 <= Game.CANVAS_HEIGHT - imageY) {
+            y = y + 5;
+        } else {
+            y = Game.CANVAS_HEIGHT - imageY;
+        }
     }
 
     public void setDown(boolean down) {
