@@ -1,5 +1,7 @@
 package games;
 
+import games.GameEngine.KeyboardInputHandler;
+import games.model.entities.Stickman;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.canvas.Canvas;
@@ -9,6 +11,11 @@ import javafx.stage.*;
 import javafx.scene.*;
  
 public class Game extends Application {
+
+    private Canvas canvas;
+    private GraphicsContext gc;
+    private Stickman player;
+
     public static void startGame()
     {
         launch();
@@ -22,29 +29,30 @@ public class Game extends Application {
         Scene theScene = new Scene( root );
         theStage.setScene( theScene );
 
-        Canvas canvas = new Canvas( 800, 800 );
+        this.canvas = new Canvas( 800, 800 );
         root.getChildren().add( canvas );
 
-        GraphicsContext gc = canvas.getGraphicsContext2D();
+        this.gc = canvas.getGraphicsContext2D();
 
-        Image earth = new Image( "earth.png" );
+        player = new Stickman();
 
         final long startNanoTime = System.nanoTime();
+
+        KeyboardInputHandler inputHandler = new KeyboardInputHandler(theScene, player);
 
         new AnimationTimer()
         {
             public void handle(long currentNanoTime)
             {
-                double t = (currentNanoTime - startNanoTime) / 1000000000.0;
-
-                double x = 232 + 128 * Math.cos(t);
-                double y = 232 + 128 * Math.sin(t);
-
-                // background image clears canvas
-                gc.drawImage( earth, x, y );
+                tick();
             }
         }.start();
 
         theStage.show();
+    }
+
+    private void tick() {
+        gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+        gc.drawImage( player.getImage(), player.getX(), player.getY());
     }
 }
