@@ -52,6 +52,7 @@ public class Game extends Application {
     }
 
     private void tick() {
+        player.tick();
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         gc.drawImage( player.getImage(), player.getX(), player.getY());
     }
